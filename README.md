@@ -1,5 +1,20 @@
-# Arcade
+# Arcade Game
 
+To build the executable on **CSIL/Linux**...
+```
+g++ src/main.cpp -lGL -lglut
+```
+
+To build the executable on **MacOS**...
+```
+g++ src/main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
+```
+
+
+To run the program...
+```
+./a.out
+```
 
 On mac:
 1) brew install install xquartz 

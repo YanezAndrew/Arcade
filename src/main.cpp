@@ -1,5 +1,5 @@
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl.h>
+#include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 

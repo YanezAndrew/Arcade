@@ -5,20 +5,37 @@
 #include "npc.h"
 #include <vector>
 
-std::vector<Npc> bulletStream;
+std::vector<std::vector<Npc>> allBullets;
+std::vector<Npc> warningStream;
+
+//for testing purposes
+int currStream = 1;
+
+void setupNPCS(){
+    warningStream= Npc::generate(10, WARNING, RIGHT, TOP, 0, -0.2);
+    for(int i = 0; i< 10 ; i++){
+        allBullets.push_back(Npc::generate(5, BULLET, RIGHT, TOP - i*0.2, -0.38));
+    }
+}
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     // Your OpenGL code here
-    bulletStream = Npc::generate(5, BULLET, 0.0, 0.0);
-    for(int i = 0; i < bulletStream.size(); i++){
-        glColor3f(1.0, 1.0, 1.0);
-        bulletStream[i].draw();
-        glColor3f(1.0, 1.0, 0.0);
-        bulletStream[i].move(0.15*i,0);
-        bulletStream[i].draw();
+    for (auto bullet : allBullets[currStream]){
+        bullet.draw();
+    }
+    for(auto warning : warningStream){
+        warning.draw();
     }
     glFlush();
+}
+
+void update(int value) {
+    for(int i = 0; i < allBullets[currStream].size(); i++){
+        allBullets[currStream][i].move(-0.06,0);
+    }
+    glutTimerFunc(33, update, 0);
+    glutPostRedisplay();
 }
 
 void Initialize(int argc, char** argv) {
@@ -30,8 +47,10 @@ void Initialize(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
+    setupNPCS();
     Initialize(argc, argv);
     glutDisplayFunc(display);
+    glutTimerFunc(0, update, 0);
     glutMainLoop();
     return 0;
 }

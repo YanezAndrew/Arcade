@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
+#include <SOIL.h>
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);

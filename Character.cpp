@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "util.h"
 
 Character::Character(double initX, double initY) {
     xPosition = initX;
@@ -24,12 +25,7 @@ void Character::setMovingUp(bool moveUp) {
 }
 
 void Character::draw() {
-    glBegin(GL_QUADS);
-    glVertex2f(xPosition - 0.1, yPosition - 0.1);
-    glVertex2f(xPosition + 0.1, yPosition - 0.1);
-    glVertex2f(xPosition + 0.1, yPosition + 0.1);
-    glVertex2f(xPosition - 0.1, yPosition + 0.1);
-    glEnd();
+    drawRect(xPosition, yPosition, 0.2, 0.2);
 }
 
 void Character::updateMovePosition() {

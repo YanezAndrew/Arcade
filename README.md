@@ -8,6 +8,8 @@
 
 ## About This Game
 
+This game is a simple arcade game where the player must avoid obstacles in order to survive. The player can control their character by either using the mouse or the keyboard. The player must avoid the obstacles for as long as possible in order to get the highest score.
+
 ## Code Organization
 
 For the **Player** Track, the code is split organized into Character.h/Character.cpp
@@ -16,7 +18,15 @@ For the **Player** Track, the code is split organized into Character.h/Character
 
 2. In Character.cpp, the constructor sets the initial size of our player and sets its default state (no movement). The updateMovePosition() checks the movingUp state of our player and adjusts its position accordingly. This method also ensures that the player doesn't go out of bounds. The moveKey and moveMouse methods check for their respective user inputs and updates the movingUp state depending on the input.
 
-Both tracks use main.cpp in order to display its respective objects and update their positions.
+For the **NPCs** Track, code is split mainly within npc.h/npc.cpp, but util.h/util.cpp were created for some basic utility functions such as drawing basic shapes as well
+
+1. Currently there are 2 types of NPCs, warning signs and bullets with another obstacle NPC type planned
+
+2. NPCs contain two doubles that store the coordinates of their center point, a Type enum to determine the type of NPC, and an bool called active to determine whether or not it is activated. The main functions for each NPC are `draw()` and `move()`. 
+
+3. The `draw()` function takes no parameters and checks whether the NPC is active, and then calls the specialized draw function for the NPC type to print it on the screen. The `move()` functions takes two doubles, dx and dy, and changes the center of the NPC by those respectively, if it goes outside the bounds of the screen, the center is reset to the opposite side that it was moving (moving off towards the left puts on the right side of the screen)
+
+* Both tracks use main.cpp in order to display its respective objects and update their positions.
 
 ## How To Play
 
@@ -37,15 +47,13 @@ You can control your player in one of **two** ways...
 To build the executable on **CSIL/Linux**...
 
 ```
-
-g++ main.cpp Character.cpp util.cpp -lGL -lglut
-
+g++ util.cpp npc.cpp Character.cpp main.cpp -lGL -lglut
 ```
 
 To build the executable on **MacOS**...
 
 ```
-g++ main.cpp Character.cp util.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
+g++ util.cpp npc.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
 ```
 
 To run the program...

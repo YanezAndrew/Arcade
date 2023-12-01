@@ -4,7 +4,9 @@
 #include <GL/freeglut.h>
 #include "npc.h"
 #include <vector>
+#include "Character.h"
 
+Character player1(-0.5,-0.8);
 std::vector<std::vector<Npc>> allBullets;
 std::vector<Npc> warningStream;
 
@@ -28,9 +30,19 @@ void activateBullets(int stream){
     }
 }
 
+void Initialize(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitWindowSize(800, 600);
+    glutInitWindowPosition(300,150);
+    glutCreateWindow("OpenGL Example");
+    glutFullScreen();
+}
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    // Your OpenGL code here
+    glColor3f(1.0,0.796,0.647);
+    player1.draw();
+  // Your OpenGL code here
     for(auto bulletStream: allBullets){
         for (auto bullet: bulletStream){
             bullet.draw();
@@ -43,24 +55,28 @@ void display() {
     glFlush();
 }
 
-void update(int value) {
+// Calls our update function every 33 milliseconds to ensure smooth/updated movement
+void update (int value) {
     activateBullets(currStream);
+    player1.updateMovePosition();
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();
 }
 
-void Initialize(int argc, char** argv) {
-    glutInit(&argc, argv);
-    glutInitWindowSize(800, 600);
-    glutInitWindowPosition(300,150);
-    glutCreateWindow("OpenGL Example");
-    // glutFullScreen();
+void keyboard(int key, int x, int y) {
+    player1.moveKey(key, x, y);
+}
+
+void mouse(int button, int state, int x, int y) {
+    player1.moveMouse(button, state, x, y);
 }
 
 int main(int argc, char** argv) {
     setupNPCS();
     Initialize(argc, argv);
     glutDisplayFunc(display);
+    glutSpecialFunc(keyboard);
+    glutMouseFunc(mouse);
     glutTimerFunc(0, update, 0);
     glutMainLoop();
     return 0;

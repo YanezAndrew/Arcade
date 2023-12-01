@@ -3,7 +3,7 @@
 Character::Character(double initX, double initY) {
     xPosition = initX;
     yPosition = initY;
-    isMoving = false;
+    isMovingUp = false;
 }
 
 double Character::getXPosition() {
@@ -19,8 +19,8 @@ void Character::setPosition(double newX, double newY) {
     yPosition = newY;
 }
 
-void Character::setMoving(bool move) {
-    isMoving = move;
+void Character::setMovingUp(bool moveUp) {
+    isMovingUp = moveUp;
 }
 
 void Character::draw() {
@@ -33,23 +33,26 @@ void Character::draw() {
 }
 
 void Character::updateMovePosition() {
-    if (isMoving && yPosition < 0.8f) {
+
+    // Checks and ensures that our player doesn't go out of bounds
+    if (isMovingUp && yPosition < 0.8f) {
         yPosition += 0.025f;
     }
 
-    else if (!isMoving && yPosition > -0.8f) {
+    else if (!isMovingUp && yPosition > -0.8f) {
         yPosition -= 0.025f;
     }
 }
 
 void Character::moveKey(int key, int x, int y) {
     
+    // Checks to see which key is clicked to set movingUp state
     switch (key) {
         case GLUT_KEY_UP:
-            setMoving(true);
+            setMovingUp(true);
             break;
         case GLUT_KEY_DOWN:
-            setMoving(false);
+            setMovingUp(false);
             break;
     }
 
@@ -57,13 +60,15 @@ void Character::moveKey(int key, int x, int y) {
 }
 
 void Character::moveMouse(int button, int state, int x, int y) {
+
+    // Checks to ensure that mouse is clicked to set movingUp state to true
     if (button == GLUT_LEFT_BUTTON) {
         if (state == GLUT_DOWN) {
-            setMoving(true);
+            setMovingUp(true);
         }
 
         else if (state == GLUT_UP) {
-            setMoving(false);
+            setMovingUp(false);
         }
     }
 }

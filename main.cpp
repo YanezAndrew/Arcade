@@ -16,12 +16,12 @@ void Initialize(int argc, char** argv) {
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    // Your OpenGL code here
     glColor3f(1.0,0.796,0.647);
     player1.draw();
     glFlush();
 }
 
+// Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
     player1.updateMovePosition();
     glutTimerFunc(33, update, 0);

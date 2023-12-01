@@ -18,22 +18,32 @@ void setupNPCS(){
     }
 }
 
+void activateBullets(int stream){
+    for(int i = 0; i < allBullets[stream].size(); i++){
+        Npc* bullet = &allBullets[stream][i];
+        bullet->activate();
+        bullet->move(-0.06,0);
+        
+    }
+}
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     // Your OpenGL code here
-    for (auto bullet : allBullets[currStream]){
-        bullet.draw();
+    for(auto bulletStream: allBullets){
+        for (auto bullet: bulletStream){
+            bullet.draw();
+        }
     }
     for(auto warning : warningStream){
+        warning.activate();
         warning.draw();
     }
     glFlush();
 }
 
 void update(int value) {
-    for(int i = 0; i < allBullets[currStream].size(); i++){
-        allBullets[currStream][i].move(-0.06,0);
-    }
+    activateBullets(currStream);
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();
 }

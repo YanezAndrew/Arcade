@@ -1,5 +1,4 @@
 #include "npc.h"
-#include "util.cpp"
 #include <cmath>
 
 Npc::Npc(Type t, double x, double y){
@@ -9,6 +8,10 @@ Npc::Npc(Type t, double x, double y){
 }
 
 void Npc::draw(){
+    if(!active){
+        return;
+    }
+
     if(type == BULLET){
         drawBullet();
     }else if(type == WARNING){
@@ -64,3 +67,10 @@ std::vector<Npc> Npc::generate(int n, Type t, double x, double y, double dx, dou
     return npcs;
 }
 
+void Npc::activate(){
+    active = true;
+}
+
+void Npc::deactivate(){
+    active = false;
+}

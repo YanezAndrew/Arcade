@@ -6,5 +6,6 @@
 #define UTIL_H
 
 void drawRect(GLfloat x, GLfloat y, GLfloat w, GLfloat h);
+void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled = true);
 
-#endif UTIL_H
+#endif UTIL_H 

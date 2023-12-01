@@ -13,7 +13,7 @@ void drawRect(GLfloat x, GLfloat y, GLfloat w, GLfloat h){
     glEnd();
 }
 
-void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled = true){
+void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled=true){
     if(filled){
         glBegin(GL_POLYGON);
     }

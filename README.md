@@ -8,6 +8,8 @@
 
 ## About This Game
 
+This game is a simple arcade game where the player must avoid obstacles in order to survive. The player can control their character by either using the mouse or the keyboard. The player must avoid the obstacles for as long as possible in order to get the highest score.
+
 ## Code Organization
 
 For the **Player** Track, the code is split organized into Character.h/Character.cpp

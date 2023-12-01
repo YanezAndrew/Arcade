@@ -2,12 +2,12 @@
 
 To build the executable on **CSIL/Linux**...
 ```
-g++ main.cpp -lGL -lglut
+g++ main.cpp npc.cpp-lGL -lglut
 ```
 
 To build the executable on **MacOS**...
 ```
-g++ main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
+g++ main.cpp npc.cpp-framework OpenGL -framework GLUT -I/opt/homebrew/include
 ```
 
 

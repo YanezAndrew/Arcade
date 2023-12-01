@@ -11,6 +11,7 @@ std::vector<Npc> warningStream;
 //for testing purposes
 int currStream = 1;
 
+//initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
     warningStream= Npc::generate(10, WARNING, RIGHT, TOP, 0, -0.2);
     for(int i = 0; i< 10 ; i++){

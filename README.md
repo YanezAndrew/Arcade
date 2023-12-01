@@ -45,13 +45,13 @@ You can control your player in one of **two** ways...
 To build the executable on **CSIL/Linux**...
 
 ```
-g++ main.cpp npc.cpp Character.cpp -lGL -lglut
+g++ util.cpp npc.cpp Character.cpp main.cpp -lGL -lglut
 ```
 
 To build the executable on **MacOS**...
 
 ```
-g++ main.cpp Character.cp util.cpp npc.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
+g++ util.cpp npc.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
 ```
 
 To run the program...

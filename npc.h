@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include <vector>
+#include "util.h"
 
 #ifndef NPC_H
 #define NPC_H

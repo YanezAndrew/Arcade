@@ -1,5 +1,5 @@
 #include "npc.h"
-#include "util.cpp"
+// #include "util.cpp"
 #include <cmath>
 
 Npc::Npc(Type t, double x, double y){

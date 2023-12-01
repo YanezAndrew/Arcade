@@ -22,11 +22,11 @@ For the **NPCs** Track, code is split mainly within npc.h/npc.cpp, but util.h/ut
 
 1. Currently there are 2 types of NPCs, warning signs and bullets with another obstacle NPC type planned
 
-2. NPCs contain two doubles that store the coordinates of their center point, a Type enum to determine the type of NPC, and an bool called active to determine whether or not it is activated. The main functions for each NPC are `draw()` and `move()`. 
+2. NPCs contain two doubles that store the coordinates of their center point, a Type enum to determine the type of NPC, and an bool called active to determine whether or not it is activated. The main functions for each NPC are `draw()` and `move()`.
 
 3. The `draw()` function takes no parameters and checks whether the NPC is active, and then calls the specialized draw function for the NPC type to print it on the screen. The `move()` functions takes two doubles, dx and dy, and changes the center of the NPC by those respectively, if it goes outside the bounds of the screen, the center is reset to the opposite side that it was moving (moving off towards the left puts on the right side of the screen)
 
-* Both tracks use main.cpp in order to display its respective objects and update their positions.
+- Both tracks use main.cpp in order to display its respective objects and update their positions.
 
 ## How To Play
 
@@ -53,7 +53,7 @@ g++ util.cpp npc.cpp Character.cpp main.cpp -lGL -lglut
 To build the executable on **MacOS**...
 
 ```
-g++ util.cpp npc.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include
+g++ util.cpp npc.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include -std=c++17
 ```
 
 To run the program...

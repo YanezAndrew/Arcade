@@ -1,3 +1,10 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
+#define GL_SILENCE_DEPRECATION
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/freeglut.h>
 
 class Character {
     double xPosition;
@@ -15,3 +22,5 @@ class Character {
         void moveKey(int key, int x, int y);
         void moveMouse(int button, int state, int x, int y);
 };
+
+#endif

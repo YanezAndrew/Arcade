@@ -1,8 +1,4 @@
 #include "Character.h"
-#define GL_SILENCE_DEPRECATION
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <GL/freeglut.h>
 
 Character::Character(double initX, double initY) {
     xPosition = initX;

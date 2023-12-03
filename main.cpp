@@ -5,9 +5,12 @@
 #include "npc.h"
 #include <vector>
 #include "Character.h"
+#include "background.h"
+#include <png.h>  // Include libpng header
 
 Character player1(-0.5,-0.8);
-std::vector<std::vector<Npc>> allBullets;
+Background background;
+std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
 
 //for testing purposes
@@ -21,6 +24,7 @@ void setupNPCS(){
     }
 }
 
+
 void activateBullets(int stream){
     for(int i = 0; i < allBullets[stream].size(); i++){
         Npc* bullet = &allBullets[stream][i];
@@ -33,25 +37,39 @@ void activateBullets(int stream){
 void Initialize(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(800, 600);
-    glutInitWindowPosition(300,150);
+    glutInitWindowPosition(300, 150);
     glutCreateWindow("OpenGL Example");
     glutFullScreen();
+
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Replace with the path to your PNG image
+    background.loadTexture("background.png");
+    player1.loadTexture("justin.png");
+
+
 }
 
 void display() {
+    // Sets the Color
+    glColor4f(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0,0.796,0.647);
+
+    backGround.draw();
     player1.draw();
-  // Your OpenGL code here
-    for(auto bulletStream: allBullets){
-        for (auto bullet: bulletStream){
+    
+    for (auto bulletStream : allBullets) {
+        for (auto bullet : bulletStream) {
             bullet.draw();
         }
     }
-    for(auto warning : warningStream){
+    for (auto warning : warningStream) {
         warning.activate();
         warning.draw();
     }
+    
     glFlush();
 }
 

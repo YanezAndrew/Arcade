@@ -23,9 +23,28 @@ void Character::setPosition(double newX, double newY) {
 void Character::setMovingUp(bool moveUp) {
     isMovingUp = moveUp;
 }
+void Character::loadTexture(const char* filename) {
+    characterTexture.loadTexture(filename);
+}
+
 
 void Character::draw() {
-    drawRect(xPosition, yPosition, 0.2, 0.2);
+    glColor4f(1.0, 1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, characterTexture.getID());
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(xPosition - 0.1, yPosition - 0.1);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(xPosition + 0.1, yPosition - 0.1);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(xPosition + 0.1, yPosition + 0.1);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(xPosition - 0.1, yPosition + 0.1);
+    glEnd();
+    
+
+    // drawRect(xPosition, yPosition, 0.2, 0.2);
 }
 
 void Character::updateMovePosition() {

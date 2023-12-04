@@ -57,7 +57,7 @@ void display() {
     glColor4f(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    backGround.draw();
+    background.draw();
     player1.draw();
     
     for (auto bulletStream : allBullets) {

@@ -3,6 +3,7 @@
 #include <GL/freeglut.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 #ifndef UTIL_CPP
 #define UTIL_CPP
@@ -32,7 +33,9 @@ void renderPoints(double pts){
     glColor3f(1,1,1);
     std::string points = "Points: ";
     points += std::to_string(int(pts));
-    glRasterPos2f(0, 0.95);
-    glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*)points.c_str());
+    glRasterPos2f(0, 0.75);
+    for (const char*c = points.c_str() ; *c != '\0' ; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+    }
 }
 #endif

@@ -8,6 +8,7 @@
 #include <GL/freeglut.h>
 #include <png.h>
 #include <string>
+#include <cstring>
 
 class Texture {
     const char* filename;

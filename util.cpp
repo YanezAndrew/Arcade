@@ -33,9 +33,9 @@ void renderPoints(double pts){
     glColor3f(1,1,1);
     std::string points = "Points: ";
     points += std::to_string(int(pts));
-    glRasterPos2f(0, 0.75);
-    for (const char*c = points.c_str() ; *c != '\0' ; c++) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+    glRasterPos2f(0, 0.95);
+    for(char c : points){
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
     }
 }
 #endif

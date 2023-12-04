@@ -48,8 +48,8 @@ void Initialize(int argc, char** argv) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Replace with the path to your PNG image
-    background.loadTexture("background.png");
-    player1.loadTexture("justin.png");
+    background.loadTexture("images/background.png");
+    player1.loadTexture("images/justin.png");
 
 
 }

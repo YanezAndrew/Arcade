@@ -53,7 +53,7 @@ g++ util.cpp npc.cpp Character.cpp main.cpp texture.cpp background.cpp -lGL -lgl
 To build the executable on **MacOS**...
 
 ```
-g++ util.cpp npc.cpp Character.cpp main.cpp texture.cpp background.cpp-framework OpenGL -framework GLUT -I/opt/homebrew/include -std=c++17
+g++ -g util.cpp npc.cpp texture.cpp background.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include -std=c++17 -lpng -L/opt/homebrew/lib -lz
 ```
 
 To run the program...

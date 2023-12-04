@@ -7,11 +7,13 @@
 #include "Character.h"
 #include "background.h"
 #include <png.h>  // Include libpng header
+#include <string>
 
 Character player1(-0.5,-0.8);
 Background background;
 std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
+double points = 0;
 
 //for testing purposes
 int currStream = 9;
@@ -58,6 +60,8 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     background.draw();
+    renderPoints(points);
+    glColor3f(1.0,0.796,0.647);
     player1.draw();
     
     for (auto bulletStream : allBullets) {
@@ -75,6 +79,7 @@ void display() {
 
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
+    points +=0.25;
     activateBullets(currStream);
     player1.updateMovePosition();
     glutTimerFunc(33, update, 0);

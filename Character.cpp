@@ -31,6 +31,8 @@ void Character::loadTexture(const char* filename) {
 void Character::draw() {
     glColor4f(1.0, 1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, characterTexture.getID());
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
@@ -42,6 +44,7 @@ void Character::draw() {
     glTexCoord2f(0.0f, 0.0f);
     glVertex2f(xPosition - 0.1, yPosition + 0.1);
     glEnd();
+    glDisable(GL_BLEND);
     
 
     // drawRect(xPosition, yPosition, 0.2, 0.2);

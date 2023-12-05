@@ -44,12 +44,10 @@ void Initialize(int argc, char** argv) {
     glutFullScreen();
 
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Replace with the path to your PNG image
     background.loadTexture("images/background.png");
-    player1.loadTexture("images/justin.png");
+    player1.loadTexture("images/amongus.png");
 
 
 }
@@ -61,7 +59,7 @@ void display() {
 
     background.draw();
     renderPoints(points);
-    glColor3f(1.0,0.796,0.647);
+
     player1.draw();
     
     for (auto bulletStream : allBullets) {

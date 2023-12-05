@@ -8,6 +8,7 @@ void Background::loadTexture(const char* filename) {
 
 void Background::draw() {
     // Draw the background
+    glColor4f(1.0, 1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, backgroundTexture.getID());
 
     glEnable(GL_BLEND);

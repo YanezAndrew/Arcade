@@ -43,23 +43,20 @@ void Initialize(int argc, char** argv) {
     glutCreateWindow("OpenGL Example");
     glutFullScreen();
 
-    glEnable(GL_TEXTURE_2D);
-
-    // Replace with the path to your PNG image
-    background.loadTexture("images/background.png");
-    player1.loadTexture("images/amongus.png");
+    //FIXME uncomment at end, just for testing
+    // glEnable(GL_TEXTURE_2D);
+    // // Replace with the path to your PNG image
+    // background.loadTexture("images/blue.png");
+    // player1.loadTexture("images/green.png");
 
 
 }
 
 void display() {
     // Sets the Color
-    glColor4f(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    background.draw();
     renderPoints(points);
-
+    // background.draw(); //FIXME uncomment at end, just for testing
     player1.draw();
     
     for (auto bulletStream : allBullets) {

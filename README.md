@@ -47,13 +47,13 @@ You can control your player in one of **two** ways...
 To build the executable on **CSIL/Linux**...
 
 ```
-g++ util.cpp npc.cpp Character.cpp main.cpp -lGL -lglut
+g++ util.cpp npc.cpp Character.cpp main.cpp texture.cpp background.cpp -lGL -lglut -lpng
 ```
 
 To build the executable on **MacOS**...
 
 ```
-g++ util.cpp npc.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include -std=c++17
+g++ -g util.cpp npc.cpp texture.cpp background.cpp Character.cpp main.cpp -framework OpenGL -framework GLUT -I/opt/homebrew/include -std=c++17 -lpng -L/opt/homebrew/lib -lz
 ```
 
 To run the program...
@@ -71,3 +71,9 @@ To run the program...
 ```
 brew install freeglut xquartz
 ```
+
+3. If png.h is not found, run `brew install libpng`
+
+**Extra Installations For WSL/Linux**
+
+1. If png.h is not found, run `sudo apt-get install libpng-dev `

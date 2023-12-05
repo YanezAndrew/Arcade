@@ -3,6 +3,7 @@
 #include <GL/freeglut.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 #ifndef UTIL_CPP
 #define UTIL_CPP

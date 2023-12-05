@@ -46,7 +46,6 @@ void Character::draw() {
     glEnd();
     glDisable(GL_BLEND);
     
-
     // drawRect(xPosition, yPosition, 0.2, 0.2);
 }
 

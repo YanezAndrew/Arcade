@@ -8,15 +8,12 @@ Texture::Texture(const char* filename) {
     this->filename = filename;
     loadTexture(filename);
 }
-// void Texture::updateFilename(const char* newFileName) {
-//     this->filename = newFileName;
-// }
-// Load the PNG texture using libpng
 
 GLuint Texture::getID() {
     return textureID;
 }
 void Texture::loadTexture(const char* filename) {
+    // Loads png file to a GLuint texture that can be used as a sprite
     this->filename = filename;
     png_image image;
     memset(&image, 0, sizeof(image));

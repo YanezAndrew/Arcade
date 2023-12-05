@@ -18,10 +18,5 @@ class Texture {
         Texture(const char* filename);
         void loadTexture(const char* filename);
         GLuint getID();
-        // void updateFilename(const char* newFileName);
-
-
-
-
 };
 #endif

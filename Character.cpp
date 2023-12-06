@@ -54,11 +54,11 @@ void Character::draw() {
 void Character::updateMovePosition(int scalar) {
 
     // Checks and ensures that our player doesn't go out of bounds
-    if (isMovingUp && yPosition < 0.8f) {
+    if (isMovingUp && yPosition < 0.9f) {
         yPosition += 0.025 + 0.005 * (1+scalar);
     }
 
-    else if (!isMovingUp && yPosition > -0.8f) {
+    else if (!isMovingUp && yPosition > -0.9f) {
         yPosition -= 0.025 + 0.005 * (1+scalar);
     }
 }

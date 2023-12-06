@@ -21,9 +21,9 @@ int difficulty = 0;
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
-    warningStream= Npc::generate(10, WARNING, 0.9, TOP, 0, -0.2);
+    warningStream= Npc::generate(10, WARNING, RIGHT, TOP, 0, -0.2);
     for(int i = 0; i< 10 ; i++){
-        allBullets.push_back(Npc::generate(5, BULLET, RIGHT, TOP - i*0.2, -0.38));
+        allBullets.push_back(Npc::generate(5, BULLET, RIGHT-0.05, TOP - i*0.2, -0.38));
         active.push_back(false);
     }
 }

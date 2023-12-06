@@ -23,7 +23,7 @@ void Npc::move(double dx, double dy){
     y += dy;
 
     if(x < -1){
-        x = RIGHT;
+        x = RIGHT-0.05;
     }
     else if(x > 1){
         x = LEFT;

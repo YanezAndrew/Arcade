@@ -13,7 +13,7 @@ enum Type{
     OBSTACLE
 };
 
-const double RIGHT = 0.85;
+const double RIGHT = 0.9;
 const double LEFT = -0.9;
 const double TOP = 0.9;
 const double BOTTOM = -0.9;

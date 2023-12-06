@@ -8,6 +8,7 @@
 #include "background.h"
 #include <png.h>  // Include libpng header
 #include <string>
+#include "util.h"
 #include <iostream>
 
 Character player1(-0.5,-0.8);
@@ -15,25 +16,27 @@ Background background;
 std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
 double points = 0;
-
-//for testing purposes
-int currStream = 9;
+std::vector<bool> active;
+bool moving = false;
+int difficulty = 0;
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
     warningStream= Npc::generate(10, WARNING, RIGHT, TOP, 0, -0.2);
     for(int i = 0; i< 10 ; i++){
-        allBullets.push_back(Npc::generate(5, BULLET, RIGHT, TOP - i*0.2, -0.38));
+        allBullets.push_back(Npc::generate(5, BULLET, RIGHT-0.05, TOP - i*0.2, -0.38));
+        active.push_back(false);
     }
 }
 
 
-void activateBullets(int stream){
-    for(int i = 0; i < allBullets[stream].size(); i++){
-        Npc* bullet = &allBullets[stream][i];
-        bullet->activate();
-        bullet->move(-0.06,0);
-        
+void activateBullets(){
+    for (int i = 0; i<10; i++) {
+        if(active.at(i)){
+            for (auto& bullet : allBullets.at(i)) {
+                bullet.move(-0.06 - difficulty*0.01 ,0);
+            }
+        }
     }
 }
 
@@ -48,58 +51,67 @@ void Initialize(int argc, char** argv) {
     // Replace with the path to your PNG image
     background.loadTexture("images/background.png");
     player1.loadTexture("images/amongus.png");
-
-
+    srand(time(0));
 }
 
 void display() {
     // Sets the Color
-    glColor4f(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-
     background.draw();
-    renderPoints(points);
-
     player1.draw();
     
-    for (auto bulletStream : allBullets) {
-        for (auto bullet : bulletStream) {
-            // This Here Temporarily Before we have start screen
-            if (points >= 10) {
-                double bulletWidth = bullet.getWidth();  // Adjust the bullet size accordingly
-                double bulletHeight = bullet.getHeight(); // Adjust the bullet size accordingly
+    for (int i = 0; i<10; i++) {
+        if(active.at(i)){
+            if(moving){
 
-                // Check for collision with the player
-                if (player1.checkCollision(bullet.getX(), bullet.getY(), bulletWidth, bulletHeight)) {
-                    // Collision detected, take appropriate actions (e.g., stop the game or reduce player's health)
-                    // For now, let's stop the game by printing a message and exiting
+                for (auto bullet : allBullets.at(i)) {
+                    bullet.draw();
+                }
+            }
+            warningStream.at(i).draw();
+        }
+    }
+    glColor3f(0.0f, 0.0f, 0.0f);
+    renderText(points,difficulty);
+    glFlush();
+}
+
+void checkCollide(){
+    for (int i = 0; i<10; i++) {
+        if(active.at(i)){
+            for (auto bullet : allBullets.at(i)) {
+                if(player1.checkCollision(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight())){
                     std::cout << "Game Over! You collided with a bullet." << std::endl;
                     exit(0);
                 }
             }
-            
-
-
-
-
-
-
-            bullet.draw();
         }
     }
-    for (auto warning : warningStream) {
-        warning.activate();
-        warning.draw();
-    }
-    
-    glFlush();
+
 }
 
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
-    points +=0.25;
-    activateBullets(currStream);
-    player1.updateMovePosition();
+    points += 0.25;
+    //Draws Warning Sign
+    if(int(points)%(30-difficulty) == 0){
+        active = activateRandom(difficulty);
+    }
+
+    //Draws Bullets
+    if(int(points)%(30-difficulty) == (10-difficulty)){
+        moving = true;
+    }
+    //Stops Bullets
+    if(int(points)%(30-difficulty) == (29-difficulty)){
+        moving = false;
+    }
+    if(std::fmod(points,200) == 199 && difficulty < 5){
+        difficulty++;
+    }
+    activateBullets();
+    player1.updateMovePosition(difficulty);
+    checkCollide();
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();
 }

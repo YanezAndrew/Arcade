@@ -8,12 +8,16 @@
 #include "background.h"
 #include <png.h>  // Include libpng header
 #include <string>
+#include "util.h"
 
 Character player1(-0.5,-0.8);
 Background background;
 std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
 double points = 0;
+int Npc::timer = points;
+std::vector<bool> active;
+bool moving = false;
 
 //for testing purposes
 int currStream = 9;
@@ -23,16 +27,18 @@ void setupNPCS(){
     warningStream= Npc::generate(10, WARNING, RIGHT, TOP, 0, -0.2);
     for(int i = 0; i< 10 ; i++){
         allBullets.push_back(Npc::generate(5, BULLET, RIGHT, TOP - i*0.2, -0.38));
+        active.push_back(false);
     }
 }
 
 
-void activateBullets(int stream){
-    for(int i = 0; i < allBullets[stream].size(); i++){
-        Npc* bullet = &allBullets[stream][i];
-        bullet->activate();
-        bullet->move(-0.06,0);
-        
+void activateBullets(){
+    for (int i = 0; i<10; i++) {
+        if(active.at(i)){
+            for (auto& bullet : allBullets.at(i)) {
+                bullet.move(-0.06,0);
+            }
+        }
     }
 }
 
@@ -47,34 +53,44 @@ void Initialize(int argc, char** argv) {
     // Replace with the path to your PNG image
     background.loadTexture("images/background.png");
     player1.loadTexture("images/amongus.png");
-
-
+    srand(time(0));
 }
 
 void display() {
     // Sets the Color
     glClear(GL_COLOR_BUFFER_BIT);
-    renderPoints(points);
-    // background.draw(); //FIXME uncomment at end, just for testing
+    background.draw();
     player1.draw();
     
-    for (auto bulletStream : allBullets) {
-        for (auto bullet : bulletStream) {
-            bullet.draw();
+    for (int i = 0; i<10; i++) {
+        if(active.at(i)){
+            if(moving){
+                for (auto bullet : allBullets.at(i)) {
+                    bullet.draw();
+                }
+            }
+            warningStream.at(i).draw();
         }
     }
-    for (auto warning : warningStream) {
-        warning.activate();
-        warning.draw();
-    }
-    
+    glColor3f(0.0f, 0.0f, 0.0f);
+    renderPoints(points);
     glFlush();
 }
 
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
-    points +=0.25;
-    activateBullets(currStream);
+    points +=0.34;
+    Npc::timer=points;
+    if(int(points+1)%30 == 0){
+        active = activateRandom();
+    }
+    if(int(points+1)%30 == 10){
+        moving = true;
+    }
+    if(int(points+1)%30 == 29){
+        moving = false;
+    }
+    activateBullets();
     player1.updateMovePosition();
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();

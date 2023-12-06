@@ -38,4 +38,14 @@ void renderPoints(double pts){
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
     }
 }
+
+std::vector<bool> activateRandom(){
+    std::vector<bool> active(10, false);
+    int numActives = 1 + std::rand() / ((RAND_MAX + 1u) / 5);
+    for(int i = 0; i <numActives; i++){
+        int index = std::rand() / ((RAND_MAX + 1u) / 10);
+        active.at(index) = true;
+    }
+    return active;
+}
 #endif

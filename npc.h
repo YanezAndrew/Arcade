@@ -21,20 +21,20 @@ const double BOTTOM = -0.9;
 class Npc{
     double x, y;
     Type type;
-    bool active = false;
 
     public:
         Npc(Type t, double x, double y);
+        int warnTime = 0;
 
         void draw();
             void drawBullet();
             void drawWarning();
             void drawObstacle();
         void move(double x, double y);
-        void activate();
-        void deactivate();
+        void shoot();
     //static methods
     public:
+        static int timer;
         static std::vector<Npc> generate(int n, Type t, double x, double y, double dx = 0, double dy = 0);
 };
 #endif

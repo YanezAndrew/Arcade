@@ -9,10 +9,6 @@ Npc::Npc(Type t, double x, double y){
 }
 
 void Npc::draw(){
-    if(!active){
-        return;
-    }
-
     if(type == BULLET){
         drawBullet();
     }else if(type == WARNING){
@@ -50,11 +46,17 @@ void Npc::drawBullet(){
 }
 
 void Npc::drawWarning(){
-    glColor3f(1,0.5,0);
     float width = 0.075;
-    drawTriangle(x, y, width, width*1.4);
     glColor3f(1,0,0);
+    drawTriangle(x, y, width, width*1.4);
+    glColor3f(0.0f, 0.0f, 0.0f);
     drawTriangle(x, y, width, width*1.4,false);
+    width *= 0.75;
+    glColor3f(1,1,0);
+    drawTriangle(x, y-0.005, width, width*1.4);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    drawTriangle(x, y-0.005, width, width*1.4,false);
+    
 }
 
 void Npc::drawObstacle(){
@@ -68,10 +70,6 @@ std::vector<Npc> Npc::generate(int n, Type t, double x, double y, double dx, dou
     return npcs;
 }
 
-void Npc::activate(){
-    active = true;
-}
-
-void Npc::deactivate(){
-    active = false;
+void Npc::shoot(){
+    move(-0.06,0);
 }

@@ -27,6 +27,8 @@ class Character {
         void updateMovePosition();
         void moveKey(int key, int x, int y);
         void moveMouse(int button, int state, int x, int y);
+        bool checkCollision(double objectX, double objectY, double objectWidth, double objectHeight);
+        
 };
 
 #endif

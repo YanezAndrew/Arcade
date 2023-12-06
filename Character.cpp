@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "util.h"
+#include <iostream>
 
 Character::Character(double initX, double initY) {
     xPosition = initX;
@@ -92,3 +93,18 @@ void Character::moveMouse(int button, int state, int x, int y) {
     }
 }
 
+
+bool Character::checkCollision(double objectX, double objectY, double objectWidth, double objectHeight) {
+    // Check if the character collides with the object
+    if (xPosition - 0.1 < objectX + objectWidth &&
+        xPosition + 0.1 > objectX &&
+        yPosition - 0.1 < objectY + objectHeight &&
+        yPosition + 0.1 > objectY) {
+        // Collision detected
+        // std::cout << "true" << std::endl;
+        return true;
+    }
+
+    // No collision
+    return false;
+}

@@ -8,6 +8,7 @@
 #include "background.h"
 #include <png.h>  // Include libpng header
 #include <string>
+#include <iostream>
 
 Character player1(-0.5,-0.8);
 Background background;
@@ -41,7 +42,7 @@ void Initialize(int argc, char** argv) {
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(300, 150);
     glutCreateWindow("OpenGL Example");
-    glutFullScreen();
+    // glutFullScreen();
 
 
     // Replace with the path to your PNG image
@@ -63,6 +64,26 @@ void display() {
     
     for (auto bulletStream : allBullets) {
         for (auto bullet : bulletStream) {
+            // This Here Temporarily Before we have start screen
+            if (points >= 10) {
+                double bulletWidth = bullet.getWidth();  // Adjust the bullet size accordingly
+                double bulletHeight = bullet.getHeight(); // Adjust the bullet size accordingly
+
+                // Check for collision with the player
+                if (player1.checkCollision(bullet.getX(), bullet.getY(), bulletWidth, bulletHeight)) {
+                    // Collision detected, take appropriate actions (e.g., stop the game or reduce player's health)
+                    // For now, let's stop the game by printing a message and exiting
+                    std::cout << "Game Over! You collided with a bullet." << std::endl;
+                    exit(0);
+                }
+            }
+            
+
+
+
+
+
+
             bullet.draw();
         }
     }

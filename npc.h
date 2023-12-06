@@ -31,6 +31,10 @@ class Npc{
             void drawWarning();
             void drawObstacle();
         void move(double x, double y);
+        double getX();
+        double getY();
+        float getWidth();
+        float getHeight();
     //static methods
     public:
         static std::vector<Npc> generate(int n, Type t, double x, double y, double dx = 0, double dy = 0);

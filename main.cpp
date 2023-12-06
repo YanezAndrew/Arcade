@@ -43,7 +43,6 @@ void Initialize(int argc, char** argv) {
     glutCreateWindow("OpenGL Example");
     glutFullScreen();
 
-    glEnable(GL_TEXTURE_2D);
 
     // Replace with the path to your PNG image
     background.loadTexture("images/background.png");

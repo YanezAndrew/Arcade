@@ -19,6 +19,7 @@ double points = 0;
 std::vector<bool> active;
 bool moving = false;
 int difficulty = 0;
+bool stop = false;
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
@@ -45,7 +46,7 @@ void Initialize(int argc, char** argv) {
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(300, 150);
     glutCreateWindow("OpenGL Example");
-    // glutFullScreen();
+    glutFullScreen();
 
 
     // Replace with the path to your PNG image
@@ -63,7 +64,6 @@ void display() {
     for (int i = 0; i<10; i++) {
         if(active.at(i)){
             if(moving){
-
                 for (auto bullet : allBullets.at(i)) {
                     bullet.draw();
                 }
@@ -78,11 +78,11 @@ void display() {
 
 void checkCollide(){
     for (int i = 0; i<10; i++) {
-        if(active.at(i)){
+        if(active.at(i) && moving){
             for (auto bullet : allBullets.at(i)) {
                 if(player1.checkCollision(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight())){
-                    std::cout << "Game Over! You collided with a bullet." << std::endl;
-                    exit(0);
+                    std::cout << "Game Over! You collided with a bullet." << i << std::endl;
+                    stop=true;
                 }
             }
         }
@@ -92,26 +92,28 @@ void checkCollide(){
 
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
-    points += 0.25;
-    //Draws Warning Sign
-    if(int(points)%(30-difficulty) == 0){
-        active = activateRandom(difficulty);
-    }
+    if(!stop){
+        points += 0.25;
+        //Draws Warning Sign
+        if(int(points)%(30-difficulty) == 0){
+            active = activateRandom(difficulty);
+        }
 
-    //Draws Bullets
-    if(int(points)%(30-difficulty) == (10-difficulty)){
-        moving = true;
+        //Draws Bullets
+        if(int(points)%(30-difficulty) == (10-difficulty)){
+            moving = true;
+        }
+        //Stops Bullets
+        if(int(points)%(30-difficulty) == (29-difficulty)){
+            moving = false;
+        }
+        if(std::fmod(points,200) == 199 && difficulty < 5){
+            difficulty++;
+        }
+        activateBullets();
+        player1.updateMovePosition(difficulty);
+        checkCollide();
     }
-    //Stops Bullets
-    if(int(points)%(30-difficulty) == (29-difficulty)){
-        moving = false;
-    }
-    if(std::fmod(points,200) == 199 && difficulty < 5){
-        difficulty++;
-    }
-    activateBullets();
-    player1.updateMovePosition(difficulty);
-    checkCollide();
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();
 }

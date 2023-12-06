@@ -16,11 +16,11 @@ double Npc::getY() {
     return this->y;
 }
 
-float Npc::getWidth() {
+double Npc::getWidth() {
     return this->width;
 }
 
-float Npc::getHeight() {
+double Npc::getHeight() {
     return this->height;
 }
 

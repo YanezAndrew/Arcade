@@ -94,14 +94,18 @@ void Character::moveMouse(int button, int state, int x, int y) {
 }
 
 
-bool Character::checkCollision(double objectX, double objectY, double objectWidth, double objectHeight) {
-    // Check if the character collides with the object
-    if (xPosition - 0.1 < objectX + objectWidth &&
-        xPosition + 0.1 > objectX &&
-        yPosition - 0.1 < objectY + objectHeight &&
-        yPosition + 0.1 > objectY) {
-        // Collision detected
-        // std::cout << "true" << std::endl;
+bool Character::checkCollision(double npcX, double npcY, double npcWidth, double npcHeight) {
+    // Check if the character collides with the npc
+    // if (xPosition - 0.1 < npcX + npcWidth &&
+    //     xPosition + 0.1 > npcX &&
+    //     yPosition - 0.1 < npcY + npcHeight &&
+    //     yPosition + 0.1 > npcY) {
+    //     // Collision detected
+    //     // std::cout << "true" << std::endl;
+    //     return true;
+    // }
+
+    if(abs(npcY - yPosition) < (npcHeight) && abs(npcX - xPosition) < (npcWidth)){
         return true;
     }
 

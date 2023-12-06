@@ -77,12 +77,16 @@ void display() {
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
     points += 0.25;
+    //Draws Warning Sign
     if(int(points)%(30-difficulty) == 0){
         active = activateRandom(difficulty);
     }
+
+    //Draws Bullets
     if(int(points)%(30-difficulty) == (10-difficulty)){
         moving = true;
     }
+    //Stops Bullets
     if(int(points)%(30-difficulty) == (29-difficulty)){
         moving = false;
     }

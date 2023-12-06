@@ -8,6 +8,7 @@
 
 #ifndef UTIL_CPP
 #define UTIL_CPP
+//Draws a rectangle
 void drawRect(GLfloat x, GLfloat y, GLfloat w, GLfloat h){
     glBegin(GL_POLYGON);
         glVertex2f(x-w/2, y-h/2);
@@ -17,6 +18,7 @@ void drawRect(GLfloat x, GLfloat y, GLfloat w, GLfloat h){
     glEnd();
 }
 
+//Draws a triangle
 void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled=true){
     if(filled){
         glBegin(GL_POLYGON);
@@ -30,6 +32,7 @@ void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled=true){
     glEnd();
 }
 
+//Draws a circle
 void drawCircle(GLfloat x, GLfloat y, GLfloat r){
     glBegin(GL_POLYGON);
         glBegin(GL_POLYGON);
@@ -39,6 +42,8 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat r){
     glEnd();
 }
 
+
+//Writes text to screen
 void renderText(double pts,int dif){
     glColor3f(1,1,1);
     std::string text = "Points: ";
@@ -51,6 +56,8 @@ void renderText(double pts,int dif){
     }
 }
 
+
+//Randomly activates a number of streams based on difficulty
 std::vector<bool> activateRandom(int difficulty){
     std::vector<bool> active(10, false);
     // int numActives = 1 + difficulty + std::rand() / ((RAND_MAX + 1u) / (5+difficulty));

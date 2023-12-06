@@ -51,15 +51,15 @@ void Character::draw() {
     // drawRect(xPosition, yPosition, 0.2, 0.2);
 }
 
-void Character::updateMovePosition() {
+void Character::updateMovePosition(int scalar) {
 
     // Checks and ensures that our player doesn't go out of bounds
     if (isMovingUp && yPosition < 0.8f) {
-        yPosition += 0.025f;
+        yPosition += 0.025 + 0.005 * (1+scalar);
     }
 
     else if (!isMovingUp && yPosition > -0.8f) {
-        yPosition -= 0.025f;
+        yPosition -= 0.025 + 0.005 * (1+scalar);
     }
 }
 

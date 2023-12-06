@@ -13,7 +13,7 @@ enum Type{
     OBSTACLE
 };
 
-const double RIGHT = 0.9;
+const double RIGHT = 0.85;
 const double LEFT = -0.9;
 const double TOP = 0.9;
 const double BOTTOM = -0.9;
@@ -24,17 +24,14 @@ class Npc{
 
     public:
         Npc(Type t, double x, double y);
-        int warnTime = 0;
 
         void draw();
             void drawBullet();
             void drawWarning();
             void drawObstacle();
         void move(double x, double y);
-        void shoot();
     //static methods
     public:
-        static int timer;
         static std::vector<Npc> generate(int n, Type t, double x, double y, double dx = 0, double dy = 0);
 };
 #endif

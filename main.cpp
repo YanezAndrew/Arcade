@@ -43,11 +43,10 @@ void Initialize(int argc, char** argv) {
     glutCreateWindow("OpenGL Example");
     glutFullScreen();
 
-    //FIXME uncomment at end, just for testing
-    // glEnable(GL_TEXTURE_2D);
-    // // Replace with the path to your PNG image
-    // background.loadTexture("images/blue.png");
-    // player1.loadTexture("images/green.png");
+
+    // Replace with the path to your PNG image
+    background.loadTexture("images/background.png");
+    player1.loadTexture("images/amongus.png");
 
 
 }

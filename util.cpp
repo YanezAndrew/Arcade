@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <cmath>
-
+#include <cmath>    
+#include "texture.h"
 #ifndef UTIL_CPP
 #define UTIL_CPP
 //Draws a rectangle
@@ -57,6 +57,51 @@ void renderText(double pts,int dif, double x, double y){
     }
 }
 
+void renderLine(const std::string& displayText, double x, double y) {
+    glColor3f(1, 1, 1);
+    
+    // Set the position for rendering the text
+    glRasterPos2f(x, y);
+
+    // Render each character in the input string
+    for (char c : displayText) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+    }
+}
+
+void drawEndScreen(Texture texture, double score, double difficulty) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture.getID());
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glBegin(GL_QUADS);
+    glColor4f(1.0, 1.0, 1.0, 1.0);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(-0.5, -0.5);  // Bottom-left corner
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(0.5, -0.5);   // Bottom-right corner
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(0.5, 0.5);    // Top-right corner
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(-0.5, 0.5);   // Top-left corner
+    glEnd();
+
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+    // Draw a smaller black rectangle below the game over screen
+    glColor3f(0.0, 0.0, 0.0);  // Set color to black
+
+    glBegin(GL_QUADS);
+    glVertex2f(-0.5, -0.5);  // Bottom-left corner
+    glVertex2f(0.5, -0.5);   // Bottom-right corner
+    glVertex2f(0.5, -0.2);   // Top-right corner
+    glVertex2f(-0.5, -0.2);  // Top-left corner
+    glEnd();
+    // Render the score and text inside the black rectangle
+    renderText(score, difficulty, -0.4, -0.3); 
+    renderLine("Click anything to restart", 0.1, -0.3);
+}
 
 //Randomly activates a number of streams based on difficulty
 std::vector<bool> activateRandom(int difficulty){

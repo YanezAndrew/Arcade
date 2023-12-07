@@ -13,6 +13,7 @@
 
 Character player1(-0.5,-0.8);
 Background background;
+Texture endScreen;
 std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
 double points = 0;
@@ -65,6 +66,7 @@ void Initialize(int argc, char** argv) {
     // Replace with the path to your PNG image
     background.loadTexture("images/background.png");
     player1.loadTexture("images/amongus.png");
+    endScreen.loadTexture("images/gameOver.png");
     srand(time(0));
 }
 
@@ -84,16 +86,13 @@ void display() {
             warningStream.at(i).draw();
         }
     }
-    glColor3f(0.0f, 0.0f, 0.0f);
-    // renderText(points,difficulty);
+    // Logic For When You Collide With Object
     if (stop) {
-        glColor3f(0.0f, 0.0f, 0.0f); // Set color to black
-        drawRect(0.0f, 0.0f, 1.0f, 1.0f); // Adjust width and height as needed
-        renderText(points,difficulty, 0, 0);
-        // resetGame();
+        drawEndScreen(endScreen, points, difficulty);
     } else { 
         renderText(points,difficulty, 0, 0.95);
     }
+
     glFlush();
 }
 
@@ -140,7 +139,14 @@ void update (int value) {
 }
 
 void keyboard(int key, int x, int y) {
-    player1.moveKey(key, x, y);
+    if (key == 'r' || key == 'R') {
+        resetGame();
+    } else if (key == 'e' || key == 'E') {
+        exit(0);
+    }
+    else {
+        player1.moveKey(key, x, y);
+    }
 }
 
 void mouse(int button, int state, int x, int y) {

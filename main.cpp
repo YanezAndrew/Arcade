@@ -64,7 +64,7 @@ void Initialize(int argc, char** argv) {
 
 
     // Replace with the path to your PNG image
-    background.loadTexture("images/background.png");
+    background.loadTexture("images/sky.png");
     player1.loadTexture("images/amongus.png");
     endScreen.loadTexture("images/gameOver.png");
     srand(time(0));

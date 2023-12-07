@@ -93,7 +93,6 @@ void Character::moveKey(int key, int x, int y) {
 }
 
 void Character::moveMouse(int button, int state, int x, int y) {
-
     // Checks to ensure that mouse is clicked to set movingUp state to true
     if (button == GLUT_LEFT_BUTTON) {
         if (state == GLUT_DOWN) {
@@ -109,15 +108,6 @@ void Character::moveMouse(int button, int state, int x, int y) {
 
 bool Character::checkCollision(double npcX, double npcY, double npcWidth, double npcHeight) {
     // Check if the character collides with the npc
-    // if (xPosition - 0.1 < npcX + npcWidth &&
-    //     xPosition + 0.1 > npcX &&
-    //     yPosition - 0.1 < npcY + npcHeight &&
-    //     yPosition + 0.1 > npcY) {
-    //     // Collision detected
-    //     // std::cout << "true" << std::endl;
-    //     return true;
-    // }
-
     if(abs(npcY - yPosition) < (npcHeight) && abs(npcX - xPosition) < (npcWidth)){
         return true;
     }

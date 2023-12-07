@@ -141,9 +141,7 @@ void update (int value) {
 void keyboard(int key, int x, int y) {
     if (key == 'r' || key == 'R') {
         resetGame();
-    } else if (key == 'e' || key == 'E') {
-        exit(0);
-    }
+    } 
     else {
         player1.moveKey(key, x, y);
     }

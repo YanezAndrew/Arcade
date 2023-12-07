@@ -10,7 +10,7 @@
 
 void drawRect(GLfloat x, GLfloat y, GLfloat w, GLfloat h);
 void drawTriangle(GLfloat x, GLfloat y, GLfloat w, GLfloat h, bool filled = true);
-void renderText(double pts,int dif);
+void renderText(double pts,int dif, double x, double y);
 void drawCircle(GLfloat x, GLfloat y, GLfloat r);
 std::vector<bool> activateRandom(int difficulty);
 

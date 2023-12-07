@@ -14,9 +14,11 @@ class Character {
     double xPosition;
     double yPosition;
     bool isMovingUp;
+
     Texture characterTexture;
 
     public:
+        bool start;
         Character(double initX, double initY);
         double getXPosition();
         double getYPosition();

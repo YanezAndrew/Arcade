@@ -44,13 +44,14 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat r){
 
 
 //Writes text to screen
-void renderText(double pts,int dif){
+void renderText(double pts,int dif, double x, double y){
     glColor3f(1,1,1);
     std::string text = "Points: ";
     text += std::to_string(int(pts));
     text += "                      Difficulty: ";
     text += std::to_string(dif);
-    glRasterPos2f(0, 0.95);
+    // 0 0.95
+    glRasterPos2f(x, y);
     for(char c : text){
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
     }

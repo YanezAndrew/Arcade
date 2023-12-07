@@ -19,7 +19,7 @@ double points = 0;
 std::vector<bool> active;
 bool moving = false;
 int difficulty = 0;
-bool stop = false;
+bool stop = false;  
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
@@ -30,6 +30,19 @@ void setupNPCS(){
     }
 }
 
+void resetGame() {
+    // player1.start = true;
+    // player1.setPosition(-0.5,-0.8);
+
+    allBullets.clear();
+    warningStream.clear();
+    active.clear();
+    points = 0;
+    moving = false;
+    difficulty = 0;
+    stop = false;
+    setupNPCS();
+}
 
 void activateBullets(){
     for (int i = 0; i<10; i++) {
@@ -43,7 +56,7 @@ void activateBullets(){
 
 void Initialize(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitWindowSize(800, 600);
+    glutInitWindowSize(820, 600);
     glutInitWindowPosition(300, 150);
     glutCreateWindow("OpenGL Example");
     glutFullScreen();
@@ -72,7 +85,15 @@ void display() {
         }
     }
     glColor3f(0.0f, 0.0f, 0.0f);
-    renderText(points,difficulty);
+    // renderText(points,difficulty);
+    if (stop) {
+        glColor3f(0.0f, 0.0f, 0.0f); // Set color to black
+        drawRect(0.0f, 0.0f, 1.0f, 1.0f); // Adjust width and height as needed
+        renderText(points,difficulty, 0, 0);
+        // resetGame();
+    } else { 
+        renderText(points,difficulty, 0, 0.95);
+    }
     glFlush();
 }
 
@@ -81,7 +102,7 @@ void checkCollide(){
         if(active.at(i) && moving){
             for (auto bullet : allBullets.at(i)) {
                 if(player1.checkCollision(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight())){
-                    std::cout << "Game Over! You collided with a bullet." << i << std::endl;
+                    // std::cout << "Game Over! You collided with a bullet." << i << std::endl;
                     stop=true;
                 }
             }

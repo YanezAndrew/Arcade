@@ -6,7 +6,10 @@ Character::Character(double initX, double initY) {
     xPosition = initX;
     yPosition = initY;
     isMovingUp = false;
+    start = true;
 }
+
+
 
 double Character::getXPosition() {
     return xPosition;
@@ -55,12 +58,22 @@ void Character::draw() {
 void Character::updateMovePosition(int scalar) {
 
     // Checks and ensures that our player doesn't go out of bounds
-    if (isMovingUp && yPosition < 0.9f) {
+    // if (start == true) {
+    //     xPosition = -0.5;
+    //     yPosition = -0.9;
+    //     return;
+    // }
+    if (isMovingUp) {
         yPosition += 0.025 + 0.005 * (1+scalar);
+        if(yPosition >1){
+            yPosition = -1;
+        }
     }
-
-    else if (!isMovingUp && yPosition > -0.9f) {
+    else if (!isMovingUp) {
         yPosition -= 0.025 + 0.005 * (1+scalar);
+        if(yPosition < -1){
+            yPosition = 1;
+        }
     }
 }
 

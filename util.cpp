@@ -104,6 +104,14 @@ void drawEndScreen(Texture texture, double score, double difficulty) {
     renderLine("Click Q to Exit", 0.1, -0.35);
 }
 
+void printStart() {
+    glColor3f(1, 1, 1);
+    drawRect(0, 0, 1, 1);
+    glColor3f(0, 0, 0);
+    drawRect(0, 0, 0.9, 0.9);
+    renderLine("Click Enter to Start", -0.1, 0.0);
+}
+
 //Randomly activates a number of streams based on difficulty
 std::vector<bool> activateRandom(int difficulty){
     std::vector<bool> active(10, false);

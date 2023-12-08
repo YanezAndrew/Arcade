@@ -134,13 +134,16 @@ void update (int value) {
 }
 
 void specialKeyboard(int key, int x, int y) {
-        player1.moveKey(key, x, y);
+    player1.moveKey(key, x, y);
 }
 
 void regularKeyboard(unsigned char key, int x, int y){
     if (key == 'r' || key == 'R') {
         resetGame();
-    } 
+    }
+    else if(key == 'q' || key == 'Q'){
+        exit(0);
+    }
 }
 
 void mouse(int button, int state, int x, int y) {

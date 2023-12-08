@@ -101,7 +101,7 @@ void drawEndScreen(Texture texture, double score, double difficulty) {
     // Render the score and text inside the black rectangle
     renderText(score, difficulty, -0.4, -0.3); 
     renderLine("Click R to Restart", 0.1, -0.3);
-    // renderLine("Click E to Exit", 0.1, -0.35);
+    renderLine("Click Q to Exit", 0.1, -0.35);
 }
 
 //Randomly activates a number of streams based on difficulty

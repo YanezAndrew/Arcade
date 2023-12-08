@@ -10,7 +10,7 @@
 #include <string>
 #include "util.h"
 
-Character player1(-0.5,-0.8);
+Character player1(-0.5,0);
 Background background;
 Texture endScreen;
 std::vector<std::vector<Npc> > allBullets;
@@ -19,7 +19,7 @@ double points = 0;
 std::vector<bool> active;
 bool moving = false;
 int difficulty = 0;
-bool stop = false;  
+bool stop = true;  
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
@@ -84,8 +84,14 @@ void display() {
     }
     // Logic For When You Collide With Object
     if (stop) {
-        drawEndScreen(endScreen, points, difficulty);
-    } else { 
+        if(points == 0){
+        printStart();
+        }
+        else{
+            drawEndScreen(endScreen, points, difficulty);
+        }
+    }
+    else{ 
         renderText(points,difficulty, 0, 0.95);
     }
 
@@ -110,7 +116,7 @@ void update (int value) {
     if(!stop){
         points += 0.25;
         //Draws Warning Sign
-        if(int(points)%(30-difficulty) == 0){
+        if(int(points)%(30-difficulty) == 1){
             active = activateRandom(difficulty);
         }
 
@@ -135,6 +141,11 @@ void update (int value) {
 
 void specialKeyboard(int key, int x, int y) {
     player1.moveKey(key, x, y);
+    //Start game on insert
+    if(key == GLUT_KEY_INSERT && points == 0){
+        points += 1;
+        stop = false;
+    }
 }
 
 void regularKeyboard(unsigned char key, int x, int y){
@@ -143,6 +154,10 @@ void regularKeyboard(unsigned char key, int x, int y){
     }
     else if(key == 'q' || key == 'Q'){
         exit(0);
+    }
+    else if(key == 13 && points == 0){
+        points += 1;
+        stop = false;
     }
 }
 

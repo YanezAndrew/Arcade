@@ -138,13 +138,14 @@ void update (int value) {
     glutPostRedisplay();
 }
 
-void keyboard(int key, int x, int y) {
+void specialKeyboard(int key, int x, int y) {
+        player1.moveKey(key, x, y);
+}
+
+void regularKeyboard(unsigned char key, int x, int y){
     if (key == 'r' || key == 'R') {
         resetGame();
     } 
-    else {
-        player1.moveKey(key, x, y);
-    }
 }
 
 void mouse(int button, int state, int x, int y) {
@@ -155,7 +156,8 @@ int main(int argc, char** argv) {
     setupNPCS();
     Initialize(argc, argv);
     glutDisplayFunc(display);
-    glutSpecialFunc(keyboard);
+    glutSpecialFunc(specialKeyboard);
+    glutKeyboardFunc(regularKeyboard);
     glutMouseFunc(mouse);
     glutTimerFunc(0, update, 0);
     glutMainLoop();

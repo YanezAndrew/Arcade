@@ -32,6 +32,8 @@
 *.exe
 *.out
 *.app
+arcadeMac
+arcadeCsil
 
 #Project Specific Files
 .vscode

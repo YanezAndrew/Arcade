@@ -9,6 +9,7 @@ This game is a simple arcade game where the player must avoid obstacles in order
 ### How to Play the Game
 - The character is able to move up and down by either pressing the **up/down arrow keys** or by holding down the **left mouse button** and releasing it to move down.
 - Press the **R** key to restart the game.
+- Press the **Q** key to quit the game.
 
 ### Game Rules
 - If the character goes out of bounds, it will be moved to the opposite side of the screen.

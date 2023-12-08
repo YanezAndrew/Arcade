@@ -8,6 +8,23 @@ Npc::Npc(Type t, double x, double y){
     this->type = t;
 }
 
+double Npc::getX() {
+    return this->x;
+}
+
+double Npc::getY() {
+    return this->y;
+}
+
+double Npc::getWidth() {
+    return this->width;
+}
+
+double Npc::getHeight() {
+    return this->height;
+}
+
+
 void Npc::draw(){
     if(type == BULLET){
         drawBullet();

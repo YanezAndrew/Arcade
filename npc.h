@@ -20,6 +20,7 @@ const double BOTTOM = -0.9;
 
 class Npc{
     double x, y;
+    double height = 0.05, width = 0.05 * 1.375;
     Type type;
 
     public:
@@ -30,6 +31,10 @@ class Npc{
             void drawWarning();
             void drawObstacle();
         void move(double x, double y);
+        double getX();
+        double getY();
+        double getWidth();
+        double getHeight();
     //static methods
     public:
         static std::vector<Npc> generate(int n, Type t, double x, double y, double dx = 0, double dy = 0);

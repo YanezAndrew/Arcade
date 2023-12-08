@@ -17,6 +17,7 @@ class Character {
     Texture characterTexture;
 
     public:
+        bool start;
         Character(double initX, double initY);
         double getXPosition();
         double getYPosition();
@@ -27,6 +28,7 @@ class Character {
         void updateMovePosition(int scalar);
         void moveKey(int key, int x, int y);
         void moveMouse(int button, int state, int x, int y);
+        bool checkCollision(double objectX, double objectY, double objectWidth, double objectHeight);
 };
 
 #endif

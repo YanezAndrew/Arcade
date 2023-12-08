@@ -10,7 +10,7 @@
 #include <string>
 #include "util.h"
 
-Character player1(-0.5,-0.8);
+Character player1(-0.5,0);
 Background background;
 Texture endScreen;
 std::vector<std::vector<Npc> > allBullets;

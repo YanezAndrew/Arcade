@@ -109,7 +109,10 @@ void printStart() {
     drawRect(0, 0, 1, 1);
     glColor3f(0, 0, 0);
     drawRect(0, 0, 0.9, 0.9);
-    renderLine("Click Enter to Start", -0.1, 0.0);
+    renderLine("Click Enter to Start", -0.05, 0.3);
+    renderLine("Use Up or Down Arrows to move, or left mouse button", -0.16, 0.1);
+    renderLine("Press R to Restart", -0.05, -0.1);
+    renderLine("Press Q to Quit", -0.05, -0.3);
 }
 
 //Randomly activates a number of streams based on difficulty

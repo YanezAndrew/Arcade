@@ -12,12 +12,14 @@
 
 Character player1(-0.5,-0.8);
 Background background;
+Texture endScreen;
 std::vector<std::vector<Npc> > allBullets;
 std::vector<Npc> warningStream;
 double points = 0;
 std::vector<bool> active;
 bool moving = false;
 int difficulty = 0;
+bool stop = false;  
 
 //initializes bullets in a [10][5] 2D vector and warnings in a [10] 1D vector
 void setupNPCS(){
@@ -28,6 +30,16 @@ void setupNPCS(){
     }
 }
 
+void resetGame() {
+    allBullets.clear();
+    warningStream.clear();
+    active.clear();
+    points = 0;
+    moving = false;
+    difficulty = 0;
+    stop = false;
+    setupNPCS();
+}
 
 void activateBullets(){
     for (int i = 0; i<10; i++) {
@@ -41,15 +53,16 @@ void activateBullets(){
 
 void Initialize(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitWindowSize(800, 600);
+    glutInitWindowSize(820, 600);
     glutInitWindowPosition(300, 150);
-    glutCreateWindow("OpenGL Example");
+    glutCreateWindow("Justin Joyride");
     glutFullScreen();
 
 
     // Replace with the path to your PNG image
-    background.loadTexture("images/background.png");
+    background.loadTexture("images/sky.png");
     player1.loadTexture("images/amongus.png");
+    endScreen.loadTexture("images/gameOver.png");
     srand(time(0));
 }
 
@@ -69,38 +82,65 @@ void display() {
             warningStream.at(i).draw();
         }
     }
-    glColor3f(0.0f, 0.0f, 0.0f);
-    renderText(points,difficulty);
+    // Logic For When You Collide With Object
+    if (stop) {
+        drawEndScreen(endScreen, points, difficulty);
+    } else { 
+        renderText(points,difficulty, 0, 0.95);
+    }
+
     glFlush();
+}
+
+void checkCollide(){
+    for (int i = 0; i<10; i++) {
+        if(active.at(i) && moving){
+            for (auto bullet : allBullets.at(i)) {
+                if(player1.checkCollision(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight())){
+                    stop=true;
+                }
+            }
+        }
+    }
+
 }
 
 // Calls our update function every 33 milliseconds to ensure smooth/updated movement
 void update (int value) {
-    points += 0.25;
-    //Draws Warning Sign
-    if(int(points)%(30-difficulty) == 0){
-        active = activateRandom(difficulty);
-    }
+    if(!stop){
+        points += 0.25;
+        //Draws Warning Sign
+        if(int(points)%(30-difficulty) == 0){
+            active = activateRandom(difficulty);
+        }
 
-    //Draws Bullets
-    if(int(points)%(30-difficulty) == (10-difficulty)){
-        moving = true;
+        //Draws Bullets
+        if(int(points)%(30-difficulty) == (10-difficulty)){
+            moving = true;
+        }
+        //Stops Bullets
+        if(int(points)%(30-difficulty) == (29-difficulty)){
+            moving = false;
+        }
+        if(std::fmod(points,200) == 199 && difficulty < 5){
+            difficulty++;
+        }
+        activateBullets();
+        player1.updateMovePosition(difficulty);
+        checkCollide();
     }
-    //Stops Bullets
-    if(int(points)%(30-difficulty) == (29-difficulty)){
-        moving = false;
-    }
-    if(std::fmod(points,200) == 199 && difficulty < 5){
-        difficulty++;
-    }
-    activateBullets();
-    player1.updateMovePosition(difficulty);
     glutTimerFunc(33, update, 0);
     glutPostRedisplay();
 }
 
-void keyboard(int key, int x, int y) {
-    player1.moveKey(key, x, y);
+void specialKeyboard(int key, int x, int y) {
+        player1.moveKey(key, x, y);
+}
+
+void regularKeyboard(unsigned char key, int x, int y){
+    if (key == 'r' || key == 'R') {
+        resetGame();
+    } 
 }
 
 void mouse(int button, int state, int x, int y) {
@@ -111,7 +151,8 @@ int main(int argc, char** argv) {
     setupNPCS();
     Initialize(argc, argv);
     glutDisplayFunc(display);
-    glutSpecialFunc(keyboard);
+    glutSpecialFunc(specialKeyboard);
+    glutKeyboardFunc(regularKeyboard);
     glutMouseFunc(mouse);
     glutTimerFunc(0, update, 0);
     glutMainLoop();

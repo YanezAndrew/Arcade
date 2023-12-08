@@ -7,6 +7,8 @@ Character::Character(double initX, double initY) {
     isMovingUp = false;
 }
 
+
+
 double Character::getXPosition() {
     return xPosition;
 }
@@ -54,12 +56,17 @@ void Character::draw() {
 void Character::updateMovePosition(int scalar) {
 
     // Checks and ensures that our player doesn't go out of bounds
-    if (isMovingUp && yPosition < 0.9f) {
+    if (isMovingUp) {
         yPosition += 0.025 + 0.005 * (1+scalar);
+        if(yPosition >1){
+            yPosition = -1;
+        }
     }
-
-    else if (!isMovingUp && yPosition > -0.9f) {
+    else if (!isMovingUp) {
         yPosition -= 0.025 + 0.005 * (1+scalar);
+        if(yPosition < -1){
+            yPosition = 1;
+        }
     }
 }
 
@@ -79,7 +86,6 @@ void Character::moveKey(int key, int x, int y) {
 }
 
 void Character::moveMouse(int button, int state, int x, int y) {
-
     // Checks to ensure that mouse is clicked to set movingUp state to true
     if (button == GLUT_LEFT_BUTTON) {
         if (state == GLUT_DOWN) {
@@ -92,3 +98,12 @@ void Character::moveMouse(int button, int state, int x, int y) {
     }
 }
 
+
+bool Character::checkCollision(double npcX, double npcY, double npcWidth, double npcHeight) {
+    // Check if the character collides with the npc
+    if(abs(npcY - yPosition) < (npcHeight) && abs(npcX - xPosition) < (npcWidth)){
+        return true;
+    }
+    // No collision
+    return false;
+}

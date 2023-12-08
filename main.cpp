@@ -9,7 +9,6 @@
 #include <png.h>  // Include libpng header
 #include <string>
 #include "util.h"
-#include <iostream>
 
 Character player1(-0.5,-0.8);
 Background background;
@@ -32,9 +31,6 @@ void setupNPCS(){
 }
 
 void resetGame() {
-    // player1.start = true;
-    // player1.setPosition(-0.5,-0.8);
-
     allBullets.clear();
     warningStream.clear();
     active.clear();
@@ -59,7 +55,7 @@ void Initialize(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(820, 600);
     glutInitWindowPosition(300, 150);
-    glutCreateWindow("OpenGL Example");
+    glutCreateWindow("Justin Joyride");
     glutFullScreen();
 
 
@@ -101,7 +97,6 @@ void checkCollide(){
         if(active.at(i) && moving){
             for (auto bullet : allBullets.at(i)) {
                 if(player1.checkCollision(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight())){
-                    // std::cout << "Game Over! You collided with a bullet." << i << std::endl;
                     stop=true;
                 }
             }

@@ -1,12 +1,10 @@
 #include "Character.h"
 #include "util.h"
-#include <iostream>
 
 Character::Character(double initX, double initY) {
     xPosition = initX;
     yPosition = initY;
     isMovingUp = false;
-    start = true;
 }
 
 
@@ -58,11 +56,6 @@ void Character::draw() {
 void Character::updateMovePosition(int scalar) {
 
     // Checks and ensures that our player doesn't go out of bounds
-    // if (start == true) {
-    //     xPosition = -0.5;
-    //     yPosition = -0.9;
-    //     return;
-    // }
     if (isMovingUp) {
         yPosition += 0.025 + 0.005 * (1+scalar);
         if(yPosition >1){
@@ -111,7 +104,6 @@ bool Character::checkCollision(double npcX, double npcY, double npcWidth, double
     if(abs(npcY - yPosition) < (npcHeight) && abs(npcX - xPosition) < (npcWidth)){
         return true;
     }
-
     // No collision
     return false;
 }
